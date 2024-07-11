@@ -89,36 +89,54 @@ cy.get("#termsofservice")
 });
 // Step: User should Navigate to Billing page to Login
 Then("User should Navigate to Billing page to Login", () => {
-cy.get("#Email")
+cy.get(".button-1.checkout-as-guest-button")
 .click()
-.type("Rahul$@gmail.com")
-.get("#Password")
-.type("Rahul@123")
-.get(".button-1.login-button")
-.contains("Log in")
+.get("#BillingNewAddress_FirstName")
+.click()
+.type("Rahul")
+.get("#BillingNewAddress_LastName")
+.click()
+.type("Sonawane")
+.get("#BillingNewAddress_Email")
+.click()
+.type("Rahul@Gamil.com")
+.get('[data-trigger="country-select"]')
+.select("United States")
+.wait(500)
+.get('[data-trigger="state-select"]')
+.select("AE (Armed Forces Europe)")
+.wait(500)
+.get("#BillingNewAddress_City")
+.click()
+.type("Pune")
+.get("#BillingNewAddress_Address1")
+.click()
+.type("Pune Circle Road")
+.get("#BillingNewAddress_ZipPostalCode")
+.click()
+.type("444444")
+.get("#BillingNewAddress_PhoneNumber")
+.click()
+.type("888888888")
+.get(".button-1.new-address-next-step-button").eq(0)
 .click();
 });
 // Step: User Fulfill all checkout Requirements
 When("User Fulfill all checkout Requirements", () => {
-cy.get("#termsofservice")
-.click()
-.get("#checkout")
-.click();
+    cy.get(".button-1.shipping-method-next-step-button")
+    .click()
+    .get(".button-1.payment-method-next-step-button")
+    .click()
+    .get(".button-1.payment-info-next-step-button")
+    .click();
+    
 });
 // Step: User should navigate to Confirm Page to confirm the shipment
 Then("User should naviagte to Confirm Page to confirm the shipment", () => {
-cy.get(".button-1").eq(5)
-.click()
-.get(".button-1").eq(8)
-.click()
-.get(".button-1").eq(9)
-.click()
-.get(".button-1").eq(10)
-.click()
-.get(".button-1").eq(11)
-.click()
-
+     cy.get(".button-1.confirm-order-next-step-button")    
+    .click()
 });
+
 // Step: User should see confirmation page
 And("User should see confirmation page", () => {
 cy.get(".page-title")
